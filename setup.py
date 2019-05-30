@@ -36,7 +36,7 @@ setup(
     entry_points={
         'console_scripts': [
             'ec2ools=ec2ools.cli:main',
-            'ec2ools-eips=ec2ools.cli-eips:main',
+            'ec2ools-eip=ec2ools.cli_eip:main',
         ],
     },
     install_requires=requirements,

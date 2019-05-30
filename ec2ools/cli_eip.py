@@ -5,9 +5,14 @@ import sys
 import click
 
 
-@click.command()
+@click.group()
 def main(args=None):
     pass
+
+
+@main.command(name='allocate')
+def eip_allocate():
+    click.echo("HERERERE")
 
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover
