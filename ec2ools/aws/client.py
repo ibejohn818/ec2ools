@@ -1,7 +1,7 @@
 import boto3
 import subprocess
 
-
+EC2_METADATA='/usr/bin/ec2-metadata'
 
 class Client:
 
@@ -38,9 +38,10 @@ class MetaData:
         """
         arg = "--{}".format(name)
 
-        cmd = "ec2-metadata {}".format(arg)
+        cmd = "{} {}".format(EC2_METADATA, arg)
 
         try:
-            return subprocess.check_output(cmd)
+            res = subprocess.check_output(cmd)
+            return res.split(":")[1].strip()
         except Exception as e:
             print(str(e))
