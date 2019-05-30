@@ -45,7 +45,7 @@ setup(
     include_package_data=True,
     keywords='ec2ools',
     name='ec2ools',
-    packages=find_packages(include=['ec2ools']),
+    packages=find_packages(),
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/ibejohn818/ec2ools',
