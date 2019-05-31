@@ -12,7 +12,7 @@ def main(args=None):
 
 
 @main.command(name='allocate')
-@click.option('id', '--id', '-i',
+@click.argument('id',
               type=str,
               help='Allocation-id for EIP or path to file containing allocation-id')
 def eip_allocate(**kw):
