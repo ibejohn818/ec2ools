@@ -15,7 +15,7 @@ if sys.version_info[0] < 3:
 def sort_instances_by_launch(instances, reverse=False):
     """
     """
-    instances.sort(key=lambda x: (x['LaunchTime']), reverse=reverse )
+    instances.sort(key=lambda x: (x['LaunchTime'], x['InstanceId']), reverse=reverse )
     return instances
 
 
