@@ -2,6 +2,7 @@
 
 """Console script for ec2ools."""
 import sys
+import json
 import click
 from ec2ools.aws.asg import (
     Asg
@@ -32,3 +33,19 @@ def is_oldest_instance(**kw):
     if not res:
         exit(1)
     exit(0)
+
+@main.command('get-instances')
+def get_asg_instances(**kw):
+    """
+    """
+    asg = Asg()
+    id = 'i-0856c9af877a1c264'
+    asg_find = asg.get_asg_by_instance(id)
+
+    print(asg_find)
+
+
+@main.command(name='get-asg')
+def get_asg(**kw):
+    pass
+

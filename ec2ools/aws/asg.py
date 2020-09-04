@@ -30,6 +30,7 @@ class AsgBase:
         res = client('autoscaling').describe_auto_scaling_instances(
             InstanceIds=[instance_id])
 
+        print(res)
         if len(res.get('AutoScalingInstances')) <= 0:
             return
 

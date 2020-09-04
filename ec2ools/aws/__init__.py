@@ -1,3 +1,4 @@
+import os
 import requests
 import boto3
 import subprocess
@@ -21,6 +22,10 @@ def get_region():
         constant
     """
     global REGION
+
+    if os.environ.get("AWS_REGION"):
+        REGION = os.environ.get("AWS_REGION")
+
     if REGION is None:
         cmd = "curl -s http://169.254.169.254/latest/dynamic/instance-identity/document"
         res = subprocess.check_output(shlex.split(cmd))
@@ -53,7 +58,7 @@ class MetaService:
     def __init__(self, revision='latest'):
         self.revision = revision
 
-    @propery
+    @property
     def session(self):
         if MetaService._SESSION is None:
             sess = requests.Session()
