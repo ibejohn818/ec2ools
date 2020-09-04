@@ -1,3 +1,4 @@
+import requests
 import boto3
 import subprocess
 import shlex
@@ -39,3 +40,51 @@ def metadata(name):
         return res.decode().split(":")[1].strip()
     except Exception as e:
         print(str(e))
+
+
+
+METADATA_HOST = "169.254.169.254"
+
+
+class MetaService:
+
+    _SESSION = None
+
+    def __init__(self, revision='latest'):
+        self.revision = revision
+
+    @propery
+    def session(self):
+        if MetaService._SESSION is None:
+            sess = requests.Session()
+            MetaService._SESSION = sess
+        return MetaService._SESSION
+
+    @property
+    def url(self):
+        return "http://{}/{}".format(
+            METADATA_HOST,
+            self.revision)
+
+    def query(self, path):
+        """ query path from the meta data service
+        """
+        req = self.session.get("{}/{}".format(self.url, path))
+
+        if req.status_code != 200:
+            raise Exception("Metadata query error: ", path)
+
+        return req.json()
+
+    def query_meta(self, path):
+        """ query a path from the meta-data namespace
+        """
+        res = self.query("meta-data/{}".format(path))
+        return res
+
+    def identity_doc(self):
+        """ query the instance identity document
+            and return json as a dict
+        """
+        res = self.query("dynamic/instance-identity/document")
+        return json.loads(res)
