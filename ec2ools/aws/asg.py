@@ -41,13 +41,15 @@ class AsgBase:
 
 class Asg(AsgBase):
 
+    def __init__(self, asg_name):
+        self.asg_name = asg_name
 
-    def get_instances(self, asg_group_name):
+    def get_instances(self):
         """
         """
 
         res = client('autoscaling').describe_auto_scaling_groups(
-            AutoScalingGroupNames=[asg_group_name])
+            AutoScalingGroupNames=[self.asg_name])
 
         if len(res.get('AutoScalingGroups', [])) <= 0:
             return

@@ -1,6 +1,7 @@
 import sys
 import os
 from ec2ools import aws
+from ec2tools.aws import MetaService
 
 
 class EipBase:
@@ -8,7 +9,8 @@ class EipBase:
     def allocate_eip(self, alloc_id):
         """
         """
-        instance_id = aws.metadata('instance-id')
+        meta = MetaService()
+        instance_id = meta.query('instance-id')
         eip_info = self._query_eip(alloc_id)
 
         if not eip_info:

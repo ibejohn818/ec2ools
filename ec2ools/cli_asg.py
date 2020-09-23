@@ -7,6 +7,9 @@ import click
 from ec2ools.aws.asg import (
     Asg
 )
+from ec2ools.aws import (
+    ec2
+)
 ctx_settings = {
     'help_option_names': ['-h', '--help']
 }
@@ -38,11 +41,16 @@ def is_oldest_instance(**kw):
 def get_asg_instances(**kw):
     """
     """
-    asg = Asg()
-    id = 'i-0856c9af877a1c264'
-    asg_find = asg.get_asg_by_instance(id)
+    id = 'i-0523e07206641cf70'
+    # inst = ec2.Instance.from_metadata()
+    inst = ec2.Instance(id)
+    inst.load_tags()
 
-    print(asg_find)
+    asg = Asg(inst.asg_name)
+    asg_find = asg.get_instances()
+
+    from pprint import pprint
+    pprint(asg_find)
 
 
 @main.command(name='get-asg')

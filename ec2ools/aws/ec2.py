@@ -1,11 +1,12 @@
 from ec2ools.aws import MetaService, client
 
-class Instance(CFStackable):
+class Instance:
 
     def __init__(self, instance_id):
         super().__init__()
         self.instance_id = instance_id
         self.asg_name = None
+        self.tags = []
 
     @classmethod
     def from_metadata(cls):
